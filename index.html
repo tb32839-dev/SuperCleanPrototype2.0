@@ -1,0 +1,2590 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Super Clean | Pressure Washing & Mobile Detailing</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Super Clean provides pressure washing and mobile detailing for residential and commercial clients. Book online, request a quote, or choose a subscription bundle." />
+  <meta name="keywords" content="pressure washing, power washing, mobile detailing, commercial pressure washing, residential pressure washing, fleet detailing, exterior cleaning, Super Clean, subscription cleaning" />
+  <meta name="theme-color" content="#0B1220" />
+
+  <meta property="og:title" content="Super Clean | Pressure Washing & Mobile Detailing" />
+  <meta property="og:description" content="Slate-gray executive design with electric-blue accents. Book service, explore bundles, and request a quote." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="Projectphoto.jpeg" />
+
+  <style>
+    /* =========================================
+       SUPER CLEAN — EXECUTIVE SLATE + ELECTRIC BLUE
+       Single-file prototype with:
+       - Polished hero + headers
+       - Services
+       - Gallery placeholder
+       - Dynamic calendar scheduler
+       - Bundles & subscriptions (Bronze/Silver/Gold)
+       - Functional chatbot that can navigate + suggest
+       ========================================= */
+
+    :root{
+      /* Slate base */
+      --bg0:#070B14;
+      --bg1:#0B1220;
+      --bg2:#0F172A; /* slate */
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.04);
+      --line: rgba(255,255,255,.10);
+      --line2: rgba(59,130,246,.22);
+
+      /* Electric accents */
+      --blue:#3B82F6;       /* electric blue */
+      --blue2:#22D3EE;      /* cyan pop */
+      --glow: rgba(59,130,246,.28);
+
+      /* Text */
+      --text:#EAF2FF;
+      --muted:#B8C6E6;
+      --muted2:#95A7CF;
+
+      /* Status */
+      --ok:#34D399;
+      --warn:#FBBF24;
+      --danger:#FB7185;
+
+      --shadow: 0 22px 70px rgba(0,0,0,.60);
+      --shadow2: 0 18px 55px rgba(0,0,0,.45);
+
+      --r:18px;
+      --r2:26px;
+      --max:1200px;
+      --focus: 0 0 0 3px rgba(59,130,246,.22), 0 0 0 1px rgba(59,130,246,.35) inset;
+
+      --ease: cubic-bezier(.2,.8,.2,1);
+    }
+
+    *{ box-sizing:border-box }
+    html{ scroll-behavior:smooth }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color:var(--text);
+      background: radial-gradient(1200px 900px at 20% -10%, rgba(59,130,246,.22), transparent 58%),
+                  radial-gradient(900px 700px at 95% 5%, rgba(34,211,238,.14), transparent 60%),
+                  linear-gradient(180deg, var(--bg0), var(--bg1) 45%, var(--bg0) 100%);
+      overflow-x:hidden;
+    }
+    a{ color:inherit }
+    img{ max-width:100%; display:block }
+    .wrap{ max-width:var(--max); margin:0 auto; padding:0 18px }
+    .grid{ display:grid; gap:18px }
+    .muted{ color:var(--muted) }
+    .muted2{ color:var(--muted2) }
+    .sr{ position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden }
+
+    /* Subtle star texture */
+    .stars{
+      position:fixed; inset:0;
+      pointer-events:none;
+      opacity:.55;
+      background-image:
+        radial-gradient(1.8px 1.8px at 12% 18%, rgba(255,255,255,.28) 50%, transparent 52%),
+        radial-gradient(1.4px 1.4px at 25% 10%, rgba(255,255,255,.18) 50%, transparent 52%),
+        radial-gradient(1.6px 1.6px at 54% 14%, rgba(255,255,255,.16) 50%, transparent 52%),
+        radial-gradient(1.2px 1.2px at 78% 20%, rgba(255,255,255,.14) 50%, transparent 52%),
+        radial-gradient(1.4px 1.4px at 88% 35%, rgba(255,255,255,.12) 50%, transparent 52%),
+        radial-gradient(1.2px 1.2px at 15% 48%, rgba(255,255,255,.10) 50%, transparent 52%),
+        radial-gradient(1.4px 1.4px at 42% 36%, rgba(255,255,255,.10) 50%, transparent 52%),
+        radial-gradient(1.2px 1.2px at 64% 40%, rgba(255,255,255,.08) 50%, transparent 52%),
+        radial-gradient(1.2px 1.2px at 92% 18%, rgba(255,255,255,.10) 50%, transparent 52%);
+      mix-blend-mode:screen;
+    }
+
+    /* ================= Header ================= */
+    header{
+      position:sticky; top:0; z-index:60;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(180deg, rgba(7,11,20,.78), rgba(7,11,20,.42));
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:12px 0; gap:12px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      text-decoration:none;
+      min-width: 240px;
+    }
+    .logoWrap{
+      width:48px; height:48px;
+      border-radius:14px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      box-shadow: 0 14px 44px rgba(0,0,0,.5);
+    }
+    .logoWrap img{ width:100%; height:100%; object-fit:cover }
+    .brandName{ display:flex; flex-direction:column; line-height:1.05 }
+    .brandName b{ font-size:14px; letter-spacing:.3px }
+    .brandName span{ font-size:12px; color:var(--muted); font-weight:900 }
+
+    nav{
+      display:flex; align-items:center; justify-content:center;
+      gap:10px; flex-wrap:wrap;
+    }
+    .navlink{
+      padding:10px 12px;
+      border-radius:12px;
+      font-weight:950;
+      letter-spacing:.15px;
+      text-decoration:none;
+      color:rgba(234,242,255,.92);
+      border:1px solid transparent;
+      background:transparent;
+      transition: background .16s var(--ease), border-color .16s var(--ease);
+    }
+    .navlink:hover{ background:rgba(255,255,255,.05); border-color:rgba(255,255,255,.08) }
+    .navlink:focus{ outline:none; box-shadow:var(--focus) }
+
+    .actions{ display:flex; gap:10px; align-items:center }
+
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:12px 16px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      color:rgba(234,242,255,.92);
+      font-weight:950;
+      text-decoration:none;
+      cursor:pointer;
+      user-select:none;
+      transition: transform .14s var(--ease), border-color .14s var(--ease), filter .14s var(--ease);
+      box-shadow: 0 14px 44px rgba(0,0,0,.45);
+    }
+    .btn:hover{ transform: translateY(-1px); border-color: rgba(59,130,246,.35) }
+    .btn:active{ transform: translateY(0) }
+    .btn:focus{ outline:none; box-shadow:var(--focus) }
+    .btn.primary{
+      border:0;
+      color:#06101A;
+      background: linear-gradient(90deg, rgba(59,130,246,.95), rgba(34,211,238,.85));
+      box-shadow: 0 22px 70px rgba(59,130,246,.20);
+    }
+    .btn.soft{
+      border:1px solid rgba(59,130,246,.22);
+      background: rgba(59,130,246,.10);
+    }
+    .btn.small{ padding:10px 12px; border-radius:12px }
+
+    .hamburger{
+      display:none;
+      width:44px; height:44px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      cursor:pointer;
+      place-items:center;
+      box-shadow: 0 14px 44px rgba(0,0,0,.45);
+    }
+    .hamburger:focus{ outline:none; box-shadow:var(--focus) }
+    .hamburger span{
+      width:18px; height:2px; border-radius:10px;
+      background:rgba(234,242,255,.92);
+      display:block; position:relative;
+    }
+    .hamburger span:before,.hamburger span:after{
+      content:""; position:absolute; left:0; width:18px; height:2px;
+      background:rgba(234,242,255,.92); border-radius:10px;
+    }
+    .hamburger span:before{ top:-6px }
+    .hamburger span:after{ top:6px }
+
+    .mobileMenu{
+      display:none;
+      padding:12px 0 16px;
+      border-top:1px solid rgba(255,255,255,.08);
+    }
+    .mobileMenu.open{ display:block }
+    .mobileMenu .stack{ display:grid; gap:10px }
+
+    /* ================= Hero ================= */
+    .heroScene{
+      position:relative;
+      min-height: 92vh;
+    }
+    .hero{
+      padding: 38px 0 28px;
+      position:relative;
+      overflow:hidden;
+    }
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:18px;
+      align-items:center;
+    }
+
+    .eyebrowRow{
+      display:flex; gap:10px; flex-wrap:wrap;
+      align-items:center;
+      margin-bottom: 12px;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      color: var(--muted);
+      font-weight:950;
+      font-size:12px;
+    }
+    .pill.dot::before{
+      content:"";
+      width:8px; height:8px; border-radius:999px;
+      background: var(--blue);
+      box-shadow: 0 0 0 4px rgba(59,130,246,.14);
+    }
+    .h1{
+      font-size: clamp(36px, 4.2vw, 62px);
+      line-height:1.02;
+      letter-spacing: -1px;
+      margin: 8px 0 12px;
+      text-shadow: 0 14px 55px rgba(0,0,0,.55);
+    }
+    .lead{
+      font-size: 16px;
+      font-weight: 850;
+      color: rgba(234,242,255,.86);
+      max-width: 56ch;
+      line-height:1.55;
+    }
+
+    .bullets{
+      margin: 16px 0 0;
+      padding:0;
+      list-style:none;
+      display:grid; gap:12px;
+      color:rgba(234,242,255,.92);
+      font-weight:900;
+    }
+    .bullets li{ display:flex; align-items:center; gap:10px; font-size:15px }
+    .check{
+      width:20px; height:20px; border-radius:6px;
+      display:grid; place-items:center;
+      background: rgba(59,130,246,.14);
+      border:1px solid rgba(59,130,246,.22);
+      box-shadow: 0 10px 25px rgba(0,0,0,.28);
+    }
+    .check svg{ width:14px; height:14px; fill:rgba(234,242,255,.9) }
+
+    .ctaRow{ margin-top:18px; display:flex; gap:12px; flex-wrap:wrap }
+
+    .kpis{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap:12px;
+    }
+    .kpi{
+      padding:14px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      box-shadow: var(--shadow2);
+    }
+    .kpi .num{ font-size:20px; font-weight:1000 }
+    .kpi .lbl{ font-size:12px; color:var(--muted); font-weight:900; margin-top:4px }
+
+    .stage{
+      width:100%;
+      border-radius: var(--r2);
+      border: 1px solid rgba(255,255,255,.10);
+      background:
+        radial-gradient(900px 520px at 35% 18%, rgba(59,130,246,.22), transparent 60%),
+        radial-gradient(700px 520px at 85% 8%, rgba(34,211,238,.14), transparent 55%),
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      box-shadow: var(--shadow);
+      padding: 18px;
+      overflow:hidden;
+      min-height: 440px;
+      display:grid;
+      align-content:center;
+      justify-items:center;
+      position:relative;
+    }
+    .stage::after{
+      content:"";
+      position:absolute; inset:-1px;
+      background:
+        radial-gradient(520px 260px at 74% 34%, rgba(59,130,246,.18), transparent 60%),
+        radial-gradient(520px 260px at 30% 44%, rgba(34,211,238,.12), transparent 62%);
+      pointer-events:none;
+      mix-blend-mode:screen;
+      opacity:.75;
+    }
+    .stageTags{
+      position:absolute; top:14px; right:14px; z-index:3;
+      display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;
+    }
+    .tag{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid rgba(59,130,246,.22);
+      background: rgba(59,130,246,.10);
+      font-weight:950;
+      font-size:12px;
+      color: rgba(234,242,255,.92);
+    }
+    .heroLogo{
+      width: min(520px, 96%);
+      transform: translateY(4px);
+      filter: drop-shadow(0 26px 44px rgba(0,0,0,.60));
+      z-index:2;
+    }
+
+    /* skyline + wave */
+    .skyline{
+      position:absolute; left:0; right:0; bottom:0;
+      height: 30vh;
+      pointer-events:none;
+      background:
+        linear-gradient(180deg, transparent, rgba(0,0,0,.35) 70%, rgba(0,0,0,.55)),
+        radial-gradient(900px 240px at 50% 30%, rgba(59,130,246,.14), transparent 70%);
+    }
+    .skyline svg{
+      position:absolute; left:50%; transform:translateX(-50%);
+      bottom: 7vh;
+      width: min(1300px, 110vw);
+      opacity:.35;
+    }
+    .wave{
+      position:absolute; left:0; right:0; bottom:-2px;
+      height: 160px;
+      background:
+        radial-gradient(260px 140px at 10% 60%, rgba(59,130,246,.36), transparent 72%),
+        radial-gradient(280px 150px at 90% 70%, rgba(34,211,238,.22), transparent 72%),
+        linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.60));
+      mask-image: radial-gradient(1200px 160px at 50% 85%, rgba(0,0,0,1), transparent 70%);
+      pointer-events:none;
+      opacity:.95;
+    }
+
+    /* ================= Sections + headers ================= */
+    section{ padding: 48px 0 }
+    .sectionHead{
+      display:flex; justify-content:space-between; align-items:flex-end;
+      gap:14px; flex-wrap:wrap;
+      margin-bottom: 16px;
+    }
+    .overline{
+      font-weight:1000;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-size: 11px;
+      color: rgba(184,198,230,.85);
+      display:flex; align-items:center; gap:10px;
+    }
+    .overline::before{
+      content:"";
+      width:28px; height:2px; border-radius:999px;
+      background: linear-gradient(90deg, rgba(59,130,246,.95), rgba(34,211,238,.80));
+      box-shadow: 0 0 0 6px rgba(59,130,246,.10);
+    }
+    h2{
+      margin: 6px 0 0;
+      font-size: clamp(22px, 2.4vw, 34px);
+      letter-spacing: -.4px;
+    }
+    .subhead{
+      margin-top:8px;
+      font-weight:850;
+      color: rgba(234,242,255,.80);
+      line-height:1.55;
+      max-width: 74ch;
+    }
+
+    .card{
+      border-radius: var(--r2);
+      border: 1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+    }
+    .pad{ padding:18px }
+
+    /* ================= Services ================= */
+    .servicesGrid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap:18px;
+      margin-top: 14px;
+    }
+    .svc{
+      display:flex; flex-direction:column;
+      min-height: 360px;
+    }
+    .svcMedia{
+      height: 160px;
+      background:
+        radial-gradient(260px 150px at 20% 25%, rgba(59,130,246,.35), transparent 65%),
+        radial-gradient(260px 150px at 85% 30%, rgba(34,211,238,.20), transparent 70%),
+        linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border-bottom:1px solid rgba(255,255,255,.08);
+      display:grid; place-items:center;
+    }
+    .svcMedia svg{ width:min(260px, 92%); filter: drop-shadow(0 14px 24px rgba(0,0,0,.45)); opacity:.98 }
+    .svc ul{ margin:12px 0 0; padding-left:18px; color:var(--muted); font-weight:850 }
+    .svc li{ margin:6px 0 }
+    .svcActions{ margin-top:auto; display:flex; gap:10px; flex-wrap:wrap; padding-top: 14px }
+
+    /* ================= Gallery ================= */
+    .galleryGrid{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .shot{
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      overflow:hidden;
+      box-shadow: 0 18px 55px rgba(0,0,0,.40);
+      display:flex; flex-direction:column;
+      min-height: 240px;
+    }
+    .shot .img{
+      height: 155px;
+      background:
+        radial-gradient(260px 160px at 25% 25%, rgba(59,130,246,.30), transparent 65%),
+        radial-gradient(260px 160px at 80% 35%, rgba(34,211,238,.18), transparent 70%),
+        linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border-bottom:1px solid rgba(255,255,255,.08);
+      position:relative;
+    }
+    /* If you later add real photos, place <img> inside .img and set object-fit */
+    .shot .img img{
+      width:100%; height:100%;
+      object-fit:cover;
+      display:none; /* currently hidden for placeholder mode */
+    }
+    .shot .img .badge{
+      position:absolute; top:12px; left:12px;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(7,11,20,.40);
+      backdrop-filter: blur(8px);
+      font-weight:950;
+      font-size:12px;
+      color: rgba(234,242,255,.92);
+    }
+    .shot .cap{
+      padding:12px 12px 14px;
+      display:grid; gap:6px;
+    }
+    .shot .cap b{ font-weight:1000 }
+    .shot .cap span{ font-size:12px; font-weight:850; color: var(--muted) }
+
+    /* ================= Inputs ================= */
+    label{ font-size:13px; font-weight:950; color:rgba(234,242,255,.92) }
+    input, select, textarea{
+      width:100%;
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(15,23,42,.55);
+      color: var(--text);
+      outline:none;
+      transition: box-shadow .14s var(--ease), border-color .14s var(--ease);
+      font-weight:850;
+    }
+    input:focus, select:focus, textarea:focus{ box-shadow:var(--focus); border-color:rgba(59,130,246,.40) }
+    textarea{ min-height:96px; resize:vertical }
+    .form{ display:grid; gap:12px }
+    .row2{ display:grid; grid-template-columns: 1fr 1fr; gap:12px }
+
+    .note{
+      font-size:12px;
+      color: rgba(184,198,230,.95);
+      font-weight:900;
+      border:1px dashed rgba(255,255,255,.16);
+      padding:10px 12px;
+      border-radius:14px;
+      background: rgba(255,255,255,.03);
+      white-space:pre-wrap;
+    }
+    .note.ok{
+      border:1px solid rgba(52,211,153,.22);
+      background: rgba(52,211,153,.08);
+    }
+    .note.warn{
+      border:1px solid rgba(251,191,36,.22);
+      background: rgba(251,191,36,.08);
+    }
+
+    /* ================= Schedule + Calendar ================= */
+    .scheduleGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:18px;
+      margin-top: 14px;
+      align-items:start;
+    }
+    .slots{ display:flex; gap:10px; flex-wrap:wrap }
+    .slot{
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      cursor:pointer;
+      font-weight:1000;
+      font-size:13px;
+      user-select:none;
+      transition: transform .14s var(--ease), border-color .14s var(--ease), background .14s var(--ease);
+    }
+    .slot:hover{ transform: translateY(-1px); border-color: rgba(59,130,246,.35) }
+    .slot.active{
+      background: linear-gradient(90deg, rgba(59,130,246,.95), rgba(34,211,238,.82));
+      border-color: transparent;
+      color:#06101A;
+    }
+
+    .calendar{
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      padding: 14px;
+    }
+    .calHead{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      margin-bottom: 10px;
+    }
+    .calTitle{
+      display:grid;
+      gap:2px;
+    }
+    .calTitle b{ font-weight:1000; letter-spacing: .2px }
+    .calTitle span{ font-size:12px; font-weight:900; color: var(--muted) }
+    .calNav{
+      display:flex; gap:8px;
+    }
+    .iconBtn{
+      width:40px; height:40px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      cursor:pointer;
+      display:grid; place-items:center;
+      transition: transform .14s var(--ease), border-color .14s var(--ease);
+    }
+    .iconBtn:hover{ transform: translateY(-1px); border-color: rgba(59,130,246,.35) }
+    .iconBtn:focus{ outline:none; box-shadow:var(--focus) }
+
+    .weekdays{
+      display:grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+      margin: 10px 0 8px;
+      color: rgba(184,198,230,.88);
+      font-weight:1000;
+      font-size:11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      text-align:center;
+    }
+    .days{
+      display:grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+    }
+    .day{
+      height: 40px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      display:grid; place-items:center;
+      font-weight:950;
+      font-size:13px;
+      cursor:pointer;
+      user-select:none;
+      transition: transform .14s var(--ease), border-color .14s var(--ease), background .14s var(--ease);
+    }
+    .day:hover{ transform: translateY(-1px); border-color: rgba(59,130,246,.35) }
+    .day.mutedDay{
+      opacity:.45;
+      cursor:default;
+    }
+    .day.disabled{
+      opacity:.35;
+      cursor:not-allowed;
+      background: rgba(255,255,255,.02);
+    }
+    .day.selected{
+      background: linear-gradient(90deg, rgba(59,130,246,.95), rgba(34,211,238,.82));
+      border-color: transparent;
+      color: #06101A;
+    }
+    .day.today{
+      box-shadow: 0 0 0 1px rgba(59,130,246,.35) inset, 0 0 0 4px rgba(59,130,246,.10);
+    }
+
+    .availRow{
+      display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+      margin-top: 12px;
+    }
+    .miniTag{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      font-weight:950; font-size:12px;
+      color: rgba(234,242,255,.90);
+    }
+    .miniTag.blue{
+      border-color: rgba(59,130,246,.25);
+      background: rgba(59,130,246,.10);
+    }
+
+    /* ================= Bundles ================= */
+    .bundleTop{
+      display:flex; justify-content:space-between; align-items:flex-end; gap:14px; flex-wrap:wrap;
+      margin-top: 8px;
+    }
+    .segmented{
+      display:flex; gap:8px; flex-wrap:wrap;
+      padding:6px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+    }
+    .segBtn{
+      padding:10px 12px;
+      border-radius: 14px;
+      border:1px solid transparent;
+      background: transparent;
+      color: rgba(234,242,255,.90);
+      font-weight:1000;
+      cursor:pointer;
+      transition: background .14s var(--ease), border-color .14s var(--ease), transform .14s var(--ease);
+    }
+    .segBtn:hover{ background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.08) }
+    .segBtn[aria-selected="true"]{
+      background: rgba(59,130,246,.14);
+      border-color: rgba(59,130,246,.26);
+    }
+    .segBtn:focus{ outline:none; box-shadow:var(--focus) }
+
+    .tiers{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .tier{
+      border-radius: 22px;
+      border:1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow: 0 18px 55px rgba(0,0,0,.45);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+    }
+    .tierHead{
+      padding: 16px 16px 12px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      background:
+        radial-gradient(420px 220px at 30% 10%, rgba(59,130,246,.18), transparent 62%),
+        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+    }
+    .tierName{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+    }
+    .tierName b{ font-weight:1100; font-size:18px }
+    .tierBadge{
+      padding:7px 10px;
+      border-radius: 999px;
+      font-weight:1000;
+      font-size:12px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(7,11,20,.35);
+      backdrop-filter: blur(8px);
+      color: rgba(234,242,255,.90);
+    }
+    .priceRow{
+      margin-top: 10px;
+      display:flex; align-items:baseline; gap:8px; flex-wrap:wrap;
+    }
+    .price{
+      font-size: 28px;
+      font-weight:1200;
+      letter-spacing: -.6px;
+    }
+    .per{
+      font-weight:1000;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .tierBody{
+      padding: 14px 16px 16px;
+      display:grid;
+      gap: 10px;
+      flex: 1;
+    }
+    .tierBody ul{
+      margin:0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-weight: 850;
+    }
+    .tierBody li{ margin:6px 0 }
+    .tierCtas{
+      padding: 0 16px 16px;
+      display:flex; gap:10px; flex-wrap:wrap;
+    }
+    .tier.featured{
+      border-color: rgba(59,130,246,.30);
+      box-shadow: 0 26px 90px rgba(59,130,246,.16);
+      position:relative;
+    }
+    .tier.featured::before{
+      content:"Recommended";
+      position:absolute; top:12px; left:12px;
+      padding:7px 10px;
+      border-radius:999px;
+      background: rgba(59,130,246,.18);
+      border: 1px solid rgba(59,130,246,.30);
+      font-weight:1100;
+      font-size:12px;
+      color: rgba(234,242,255,.95);
+      backdrop-filter: blur(10px);
+    }
+
+    /* ================= About/Contact ================= */
+    .tabs{
+      display:flex; gap:10px; flex-wrap:wrap;
+      padding: 6px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      width: fit-content;
+    }
+    .tabBtn{
+      padding:10px 12px;
+      border-radius: 14px;
+      border:1px solid transparent;
+      background: transparent;
+      color: rgba(234,242,255,.90);
+      font-weight:1000;
+      cursor:pointer;
+      transition: background .14s var(--ease), border-color .14s var(--ease);
+    }
+    .tabBtn:hover{ background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.08) }
+    .tabBtn[aria-selected="true"]{
+      background: rgba(59,130,246,.14);
+      border-color: rgba(59,130,246,.26);
+    }
+    .tabBtn:focus{ outline:none; box-shadow:var(--focus) }
+    .tabPanel{ display:none }
+    .tabPanel.active{ display:block }
+
+    .aboutGrid{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:18px;
+      margin-top: 14px;
+      align-items:stretch;
+    }
+    .infoGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+      margin-top: 14px;
+    }
+    .infoBox{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      border-radius: 16px;
+      padding: 12px;
+    }
+    .infoBox b{ font-weight:1000 }
+    .infoBox .small{ font-size:12px; font-weight:900; color:var(--muted); margin-top:4px }
+    .contactActions{ display:flex; gap:10px; flex-wrap:wrap }
+
+    /* ================= Footer ================= */
+    footer{
+      padding: 28px 0 42px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      color: var(--muted);
+      background: linear-gradient(180deg, rgba(7,11,20,0), rgba(7,11,20,.55));
+    }
+    .foot{
+      display:flex; justify-content:space-between; align-items:center;
+      gap:12px; flex-wrap:wrap;
+    }
+    .foot a{ color: rgba(234,242,255,.88); text-decoration:none; font-weight:950 }
+    .foot a:hover{ text-decoration:underline }
+
+    /* ================= Chatbot ================= */
+    .chatFab{
+      position:fixed; right:18px; bottom:18px; z-index:90;
+      width:56px; height:56px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.03));
+      box-shadow: 0 22px 70px rgba(0,0,0,.65);
+      display:grid; place-items:center;
+      cursor:pointer;
+      transition: transform .14s var(--ease), border-color .14s var(--ease);
+    }
+    .chatFab:hover{ transform: translateY(-2px); border-color: rgba(59,130,246,.35) }
+    .chatFab:focus{ outline:none; box-shadow:var(--focus) }
+
+    .chatPanel{
+      position:fixed; right:18px; bottom:86px; z-index:95;
+      width:min(390px, calc(100vw - 36px));
+      max-height: 72vh;
+      border-radius: 22px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(15,23,42,.90);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 26px 84px rgba(0,0,0,.75);
+      overflow:hidden;
+      display:none;
+      flex-direction:column;
+    }
+    .chatPanel.open{ display:flex }
+    .chatHead{
+      padding:12px 14px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      background: linear-gradient(90deg, rgba(59,130,246,.18), rgba(34,211,238,.10));
+    }
+    .chatTitle{
+      display:flex; align-items:center; gap:10px;
+      font-weight:1100;
+      letter-spacing: .1px;
+    }
+    .chatTitle small{
+      display:block; color: var(--muted);
+      font-weight:900; margin-top:2px;
+    }
+    .chatBody{
+      padding:12px;
+      overflow:auto;
+      display:grid;
+      gap:10px;
+    }
+    .msg{
+      width:fit-content; max-width:92%;
+      padding:10px 12px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      color: rgba(234,242,255,.92);
+      font-weight:850;
+      font-size:13px;
+      line-height:1.35;
+    }
+    .msg.me{
+      margin-left:auto;
+      background: linear-gradient(90deg, rgba(59,130,246,.92), rgba(34,211,238,.82));
+      color:#06101A;
+      border-color: transparent;
+      font-weight:1000;
+    }
+    .chatQuick{
+      display:flex; gap:8px; flex-wrap:wrap;
+      padding: 0 12px 12px;
+    }
+    .chatInput{
+      display:flex; gap:10px;
+      padding:12px;
+      border-top:1px solid rgba(255,255,255,.10);
+      background: rgba(7,11,20,.25);
+    }
+    .chatInput input{ flex:1 }
+
+    /* ================= Responsive ================= */
+    @media (max-width: 980px){
+      nav{ display:none }
+      .hamburger{ display:grid }
+      .heroGrid{ grid-template-columns:1fr }
+      .stage{ min-height: 380px }
+      .kpis{ grid-template-columns: repeat(2, minmax(0,1fr)) }
+      .servicesGrid{ grid-template-columns:1fr }
+      .galleryGrid{ grid-template-columns:1fr }
+      .scheduleGrid{ grid-template-columns:1fr }
+      .tiers{ grid-template-columns: 1fr }
+      .aboutGrid{ grid-template-columns:1fr }
+      .infoGrid{ grid-template-columns:1fr }
+    }
+    @media (prefers-reduced-motion: reduce){
+      html{ scroll-behavior:auto }
+      .btn,.slot,.chatFab,.day,.iconBtn{ transition:none }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="stars" aria-hidden="true"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="wrap topbar">
+      <a class="brand" href="#home" aria-label="Super Clean Home">
+        <div class="logoWrap">
+          <img src="Projectphoto.jpeg" alt="Super Clean logo">
+        </div>
+        <div class="brandName">
+          <b>Super Clean</b>
+          <span>Pressure Washing & Mobile Detailing</span>
+        </div>
+      </a>
+
+      <nav aria-label="Primary navigation">
+        <a class="navlink" href="#services">Services</a>
+        <a class="navlink" href="#gallery">Gallery</a>
+        <a class="navlink" href="#bundles">Bundles</a>
+        <a class="navlink" href="#schedule">Schedule</a>
+        <a class="navlink" href="#aboutContact">About/Contact</a>
+      </nav>
+
+      <div class="actions">
+        <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span></button>
+        <a class="btn small soft" href="#schedule">Book</a>
+        <a class="btn small primary" href="#aboutContact" onclick="setTab('contact')">Request A Quote</a>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div class="wrap mobileMenu" id="mobileMenu" aria-label="Mobile menu">
+      <div class="stack">
+        <a class="btn" href="#services">Services</a>
+        <a class="btn" href="#gallery">Gallery</a>
+        <a class="btn" href="#bundles">Bundles</a>
+        <a class="btn" href="#schedule">Schedule</a>
+        <a class="btn" href="#aboutContact">About/Contact</a>
+        <a class="btn primary" href="#aboutContact" onclick="setTab('contact')">Request A Quote</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <div class="heroScene" id="home">
+    <main class="hero">
+      <div class="wrap heroGrid">
+        <div>
+          <div class="eyebrowRow">
+            <span class="pill dot">Slate-gray premium finish</span>
+            <span class="pill">Residential • Commercial</span>
+            <span class="pill">Mobile • On-Site</span>
+          </div>
+
+          <h1 class="h1">Executive-grade clean—<br/>booked in minutes.</h1>
+          <div class="lead">
+            Super Clean delivers a consistent, high-visibility finish for properties, storefronts, and vehicles—with a process built for reliability.
+          </div>
+
+          <ul class="bullets" aria-label="Key selling points">
+            <li>
+              <span class="check" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M9.2 16.6 4.9 12.3l1.4-1.4 2.9 2.9 8.5-8.5 1.4 1.4z"/></svg>
+              </span>
+              Professional scheduling + confirmations
+            </li>
+            <li>
+              <span class="check" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M9.2 16.6 4.9 12.3l1.4-1.4 2.9 2.9 8.5-8.5 1.4 1.4z"/></svg>
+              </span>
+              Pressure washing + detailing bundles available
+            </li>
+            <li>
+              <span class="check" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M9.2 16.6 4.9 12.3l1.4-1.4 2.9 2.9 8.5-8.5 1.4 1.4z"/></svg>
+              </span>
+              Built for recurring commercial and fleet plans
+            </li>
+          </ul>
+
+          <div class="ctaRow">
+            <a class="btn primary" href="#schedule">Schedule Service</a>
+            <a class="btn" href="#bundles">View Bundles</a>
+            <button class="btn" id="canvasBtn" type="button">Business Model Canvas</button>
+          </div>
+
+          <div class="kpis" aria-label="Highlights">
+            <div class="kpi">
+              <div class="num">Fast</div>
+              <div class="lbl">Clear scheduling flow</div>
+            </div>
+            <div class="kpi">
+              <div class="num">Premium</div>
+              <div class="lbl">Slate + electric styling</div>
+            </div>
+            <div class="kpi">
+              <div class="num">Reliable</div>
+              <div class="lbl">Repeatable process</div>
+            </div>
+            <div class="kpi">
+              <div class="num">Scalable</div>
+              <div class="lbl">Plans & subscriptions</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="stage" role="region" aria-label="Brand showcase">
+            <div class="stageTags">
+              <span class="tag">Investor-ready</span>
+              <span class="tag">Prototype → Production</span>
+            </div>
+            <img class="heroLogo" src="Projectphoto.jpeg" alt="Super Clean brand mark">
+          </div>
+        </div>
+      </div>
+
+      <div class="skyline" aria-hidden="true">
+        <svg viewBox="0 0 1200 260" xmlns="http://www.w3.org/2000/svg">
+          <g fill="rgba(180,210,255,.55)">
+            <rect x="40"  y="120" width="60" height="120" rx="6"/>
+            <rect x="120" y="90"  width="80" height="150" rx="6"/>
+            <rect x="220" y="140" width="50" height="100" rx="6"/>
+            <rect x="300" y="70"  width="90" height="170" rx="6"/>
+            <rect x="410" y="110" width="70" height="130" rx="6"/>
+            <rect x="500" y="60"  width="120" height="180" rx="6"/>
+            <rect x="640" y="130" width="70" height="110" rx="6"/>
+            <rect x="730" y="85"  width="90" height="155" rx="6"/>
+            <rect x="840" y="115" width="70" height="125" rx="6"/>
+            <rect x="930" y="65"  width="110" height="175" rx="6"/>
+            <rect x="1060" y="135" width="70" height="105" rx="6"/>
+          </g>
+        </svg>
+      </div>
+      <div class="wave" aria-hidden="true"></div>
+    </main>
+  </div>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="wrap">
+      <div class="sectionHead">
+        <div>
+          <div class="overline">Services</div>
+          <h2>Professional services for home and business</h2>
+          <div class="subhead">
+            Choose a one-time clean or select a Bronze/Silver/Gold plan for consistent results.
+          </div>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap">
+          <a class="btn small soft" href="#schedule">Schedule</a>
+          <a class="btn small primary" href="#aboutContact" onclick="setTab('contact')">Request A Quote</a>
+        </div>
+      </div>
+
+      <div class="servicesGrid">
+        <!-- Pressure Washing -->
+        <article class="card svc">
+          <div class="svcMedia" aria-hidden="true">
+            <svg viewBox="0 0 560 220" xmlns="http://www.w3.org/2000/svg" fill="none">
+              <path d="M70 160c70-64 164-96 260-96 94 0 170 28 210 74" stroke="rgba(234,242,255,.85)" stroke-width="10" stroke-linecap="round"/>
+              <path d="M124 152c48-40 120-62 206-62 70 0 136 18 182 50" stroke="rgba(59,130,246,.95)" stroke-width="10" stroke-linecap="round"/>
+              <path d="M270 54l36 24-36 24-36-24 36-24Z" fill="rgba(34,211,238,.95)"/>
+              <path d="M130 188h320" stroke="rgba(255,255,255,.20)" stroke-width="10" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="pad">
+            <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap">
+              <div style="font-weight:1100; font-size:18px">Pressure Washing</div>
+              <span class="tag">High impact</span>
+            </div>
+            <div class="muted" style="font-weight:850; margin-top:6px">
+              Concrete, sidewalks, storefronts, entryways, and exterior hardscapes—cleaned with consistent, professional output.
+            </div>
+            <ul>
+              <li>Driveways, patios, walkways</li>
+              <li>Commercial high-traffic areas</li>
+              <li>Optional recurring plans</li>
+            </ul>
+            <div class="svcActions">
+              <a class="btn small primary" href="#schedule" data-preset="Pressure Washing">Schedule</a>
+              <button class="btn small" type="button" data-quote="Pressure Washing">Quick quote</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Soft Wash -->
+        <article class="card svc">
+          <div class="svcMedia" aria-hidden="true">
+            <svg viewBox="0 0 560 220" xmlns="http://www.w3.org/2000/svg" fill="none">
+              <path d="M96 164c0-52 42-94 94-94h182c52 0 94 42 94 94v6H96v-6Z" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.18)" stroke-width="6"/>
+              <path d="M196 64l84-38 84 38" stroke="rgba(34,211,238,.9)" stroke-width="10" stroke-linecap="round"/>
+              <path d="M184 116h192" stroke="rgba(59,130,246,.9)" stroke-width="10" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="pad">
+            <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap">
+              <div style="font-weight:1100; font-size:18px">Soft Wash</div>
+              <span class="tag">Surface-safe</span>
+            </div>
+            <div class="muted" style="font-weight:850; margin-top:6px">
+              A lower-pressure method designed for siding and delicate exterior materials—removes buildup while protecting finishes.
+            </div>
+            <ul>
+              <li>Siding, fences, exterior trims</li>
+              <li>Organic growth management</li>
+              <li>Ideal for curb appeal refresh</li>
+            </ul>
+            <div class="svcActions">
+              <a class="btn small primary" href="#schedule" data-preset="Soft Wash">Schedule</a>
+              <button class="btn small" type="button" data-quote="Soft Wash">Quick quote</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Mobile Detailing -->
+        <article class="card svc">
+          <div class="svcMedia" aria-hidden="true">
+            <svg viewBox="0 0 560 220" xmlns="http://www.w3.org/2000/svg" fill="none">
+              <path d="M120 146c18-44 56-70 100-70h120c52 0 94 30 116 74" stroke="rgba(59,130,246,.95)" stroke-width="10" stroke-linecap="round"/>
+              <path d="M168 144h240" stroke="rgba(255,255,255,.20)" stroke-width="10" stroke-linecap="round"/>
+              <circle cx="208" cy="156" r="24" fill="rgba(34,211,238,.92)"/>
+              <circle cx="370" cy="156" r="24" fill="rgba(34,211,238,.92)"/>
+            </svg>
+          </div>
+          <div class="pad">
+            <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap">
+              <div style="font-weight:1100; font-size:18px">Mobile Detailing</div>
+              <span class="tag">On-site</span>
+            </div>
+            <div class="muted" style="font-weight:850; margin-top:6px">
+              Interior and exterior detailing at your location—optimized for convenience and a clean, presentable finish.
+            </div>
+            <ul>
+              <li>Interior reset + glass</li>
+              <li>Exterior wash + protection</li>
+              <li>Add-ons available</li>
+            </ul>
+            <div class="svcActions">
+              <a class="btn small primary" href="#schedule" data-preset="Mobile Detailing">Schedule</a>
+              <button class="btn small" type="button" data-quote="Mobile Detailing">Quick quote</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Commercial & Fleet -->
+        <article class="card svc">
+          <div class="svcMedia" aria-hidden="true">
+            <svg viewBox="0 0 560 220" xmlns="http://www.w3.org/2000/svg" fill="none">
+              <path d="M88 170V86c0-10 8-18 18-18h120c10 0 18 8 18 18v84" stroke="rgba(255,255,255,.22)" stroke-width="10" stroke-linecap="round"/>
+              <path d="M260 170V70c0-10 8-18 18-18h176c10 0 18 8 18 18v100" stroke="rgba(255,255,255,.16)" stroke-width="10" stroke-linecap="round"/>
+              <path d="M88 170h384" stroke="rgba(59,130,246,.95)" stroke-width="10" stroke-linecap="round"/>
+              <circle cx="174" cy="170" r="20" fill="rgba(34,211,238,.92)"/>
+              <circle cx="372" cy="170" r="20" fill="rgba(34,211,238,.92)"/>
+            </svg>
+          </div>
+          <div class="pad">
+            <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap">
+              <div style="font-weight:1100; font-size:18px">Commercial & Fleet</div>
+              <span class="tag">Recurring</span>
+            </div>
+            <div class="muted" style="font-weight:850; margin-top:6px">
+              Keep storefronts and fleets consistently clean with recurring scheduling, low-disruption options, and repeatable quality.
+            </div>
+            <ul>
+              <li>Recurring property maintenance</li>
+              <li>Fleet cadence: weekly/monthly</li>
+              <li>After-hours by request</li>
+            </ul>
+            <div class="svcActions">
+              <a class="btn small primary" href="#schedule" data-preset="Commercial & Fleet">Schedule</a>
+              <button class="btn small" type="button" data-quote="Commercial & Fleet">Quick quote</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery">
+    <div class="wrap">
+      <div class="sectionHead">
+        <div>
+          <div class="overline">Gallery</div>
+          <h2>Previous work highlights</h2>
+          <div class="subhead">
+            This section is ready for real before/after photos. For now, these are polished placeholders.
+          </div>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap">
+          <button class="btn small" type="button" id="galleryHintBtn">How to add photos</button>
+          <a class="btn small soft" href="#aboutContact" onclick="setTab('contact')">Send Us Photos</a>
+        </div>
+      </div>
+
+      <div class="galleryGrid" aria-label="Gallery placeholders">
+        <div class="shot">
+          <div class="img">
+            <div class="badge">Pressure Washing</div>
+            <!-- If you add a real image later:
+                 <img src="gallery/driveway_beforeafter.jpg" alt="Driveway before and after"> -->
+          </div>
+          <div class="cap">
+            <b>Driveway & Walkway Refresh</b>
+            <span>Residential • Concrete restoration look</span>
+          </div>
+        </div>
+
+        <div class="shot">
+          <div class="img">
+            <div class="badge">Soft Wash</div>
+          </div>
+          <div class="cap">
+            <b>Siding & Exterior Trim</b>
+            <span>Surface-safe cleaning for curb appeal</span>
+          </div>
+        </div>
+
+        <div class="shot">
+          <div class="img">
+            <div class="badge">Mobile Detailing</div>
+          </div>
+          <div class="cap">
+            <b>Interior/Exterior Detail</b>
+            <span>On-site • Presentation-ready finish</span>
+          </div>
+        </div>
+
+        <div class="shot">
+          <div class="img">
+            <div class="badge">Commercial</div>
+          </div>
+          <div class="cap">
+            <b>Storefront Sidewalks</b>
+            <span>Low disruption • Recurring cadence</span>
+          </div>
+        </div>
+
+        <div class="shot">
+          <div class="img">
+            <div class="badge">Fleet</div>
+          </div>
+          <div class="cap">
+            <b>Fleet Wash Program</b>
+            <span>Weekly • Simple reporting</span>
+          </div>
+        </div>
+
+        <div class="shot">
+          <div class="img">
+            <div class="badge">Future Work</div>
+          </div>
+          <div class="cap">
+            <b>Reserved for New Photos</b>
+            <span>Add your next showcase here</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="note" id="galleryHint" style="display:none; margin-top:14px">
+        Add photos later by:
+        1) creating a /gallery folder in your repo
+        2) uploading images (jpg/png)
+        3) placing <img src="gallery/yourfile.jpg"> inside any .shot .img block
+        4) remove "display:none" from .shot .img img in CSS (or override it)
+      </div>
+    </div>
+  </section>
+
+  <!-- BUNDLES -->
+  <section id="bundles">
+    <div class="wrap">
+      <div class="sectionHead">
+        <div>
+          <div class="overline">Bundles</div>
+          <h2>Subscriptions & tier packages</h2>
+          <div class="subhead">
+            A tier model for recurring cleanliness. Toggle between Pressure Washing and Mobile Detailing plans.
+          </div>
+        </div>
+        <div class="bundleTop">
+          <div class="segmented" role="tablist" aria-label="Bundle category">
+            <button class="segBtn" id="segWash" aria-selected="true" role="tab" onclick="setBundle('wash')">Pressure Washing</button>
+            <button class="segBtn" id="segDetail" aria-selected="false" role="tab" onclick="setBundle('detail')">Mobile Detailing</button>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap">
+            <a class="btn small soft" href="#schedule" onclick="preselectFromBundle()">Schedule a Plan</a>
+            <a class="btn small primary" href="#aboutContact" onclick="setTab('contact')">Request Pricing</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pressure Washing Tiers -->
+      <div id="bundleWash" aria-label="Pressure Washing subscription tiers">
+        <div class="tiers">
+          <div class="tier">
+            <div class="tierHead">
+              <div class="tierName">
+                <b>Bronze</b>
+                <span class="tierBadge">Maintenance</span>
+              </div>
+              <div class="priceRow">
+                <div class="price">$79</div><div class="per">/mo • starter plan (prototype pricing)</div>
+              </div>
+            </div>
+            <div class="tierBody">
+              <div class="muted" style="font-weight:900">Best for basic upkeep and seasonal refresh.</div>
+              <ul>
+                <li>Monthly walkway/entry rinse</li>
+                <li>Spot clean of high-traffic areas</li>
+                <li>Priority scheduling window</li>
+              </ul>
+              <div class="note">One-time option: driveway or patio (scope-based)</div>
+            </div>
+            <div class="tierCtas">
+              <button class="btn small primary" type="button" data-plan="Wash Bronze">Select Bronze</button>
+              <button class="btn small" type="button" data-quote-plan="Wash Bronze">Ask about Bronze</button>
+            </div>
+          </div>
+
+          <div class="tier featured">
+            <div class="tierHead">
+              <div class="tierName">
+                <b>Silver</b>
+                <span class="tierBadge">Most Popular</span>
+              </div>
+              <div class="priceRow">
+                <div class="price">$129</div><div class="per">/mo • balanced plan (prototype pricing)</div>
+              </div>
+            </div>
+            <div class="tierBody">
+              <div class="muted" style="font-weight:900">Ideal for consistent curb appeal with predictable cadence.</div>
+              <ul>
+                <li>Monthly driveway + walkway rinse</li>
+                <li>Quarterly deeper clean option</li>
+                <li>Discounted add-ons (patio/fence)</li>
+              </ul>
+              <div class="note">Commercial variant: storefront sidewalks + entry areas</div>
+            </div>
+            <div class="tierCtas">
+              <button class="btn small primary" type="button" data-plan="Wash Silver">Select Silver</button>
+              <button class="btn small" type="button" data-quote-plan="Wash Silver">Ask about Silver</button>
+            </div>
+          </div>
+
+          <div class="tier">
+            <div class="tierHead">
+              <div class="tierName">
+                <b>Gold</b>
+                <span class="tierBadge">Premium</span>
+              </div>
+              <div class="priceRow">
+                <div class="price">$199</div><div class="per">/mo • highest coverage (prototype pricing)</div>
+              </div>
+            </div>
+            <div class="tierBody">
+              <div class="muted" style="font-weight:900">For premium appearance standards and multi-area coverage.</div>
+              <ul>
+                <li>Monthly full exterior hardscape clean</li>
+                <li>Quarterly premium deep clean included</li>
+                <li>Priority + expedited scheduling</li>
+              </ul>
+              <div class="note">Fleet/commercial: recurring plan + reporting (scope-based)</div>
+            </div>
+            <div class="tierCtas">
+              <button class="btn small primary" type="button" data-plan="Wash Gold">Select Gold</button>
+              <button class="btn small" type="button" data-quote-plan="Wash Gold">Ask about Gold</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Detailing Tiers -->
+      <div id="bundleDetail" style="display:none" aria-label="Mobile Detailing subscription tiers">
+        <div class="tiers">
+          <div class="tier">
+            <div class="tierHead">
+              <div class="tierName">
+                <b>Bronze</b>
+                <span class="tierBadge">Keep-Ready</span>
+              </div>
+              <div class="priceRow">
+                <div class="price">$99</div><div class="per">/mo • starter plan (prototype pricing)</div>
+              </div>
+            </div>
+            <div class="tierBody">
+              <div class="muted" style="font-weight:900">Basic monthly upkeep for daily drivers.</div>
+              <ul>
+                <li>Monthly exterior wash</li>
+                <li>Quick interior vacuum + wipe</li>
+                <li>Windows/Glass touch-up</li>
+              </ul>
+              <div class="note">Add-on: wheel/trim protection</div>
+            </div>
+            <div class="tierCtas">
+              <button class="btn small primary" type="button" data-plan="Detail Bronze">Select Bronze</button>
+              <button class="btn small" type="button" data-quote-plan="Detail Bronze">Ask about Bronze</button>
+            </div>
+          </div>
+
+          <div class="tier featured">
+            <div class="tierHead">
+              <div class="tierName">
+                <b>Silver</b>
+                <span class="tierBadge">Most Popular</span>
+              </div>
+              <div class="priceRow">
+                <div class="price">$169</div><div class="per">/mo • balanced plan (prototype pricing)</div>
+              </div>
+            </div>
+            <div class="tierBody">
+              <div class="muted" style="font-weight:900">A strong recurring plan for consistent presentation.</div>
+              <ul>
+                <li>Monthly full interior reset</li>
+                <li>Exterior wash + protection</li>
+                <li>Wheels & tires detailed</li>
+              </ul>
+              <div class="note">Ideal for busy professionals</div>
+            </div>
+            <div class="tierCtas">
+              <button class="btn small primary" type="button" data-plan="Detail Silver">Select Silver</button>
+              <button class="btn small" type="button" data-quote-plan="Detail Silver">Ask about Silver</button>
+            </div>
+          </div>
+
+          <div class="tier">
+            <div class="tierHead">
+              <div class="tierName">
+                <b>Gold</b>
+                <span class="tierBadge">Premium</span>
+              </div>
+              <div class="priceRow">
+                <div class="price">$249</div><div class="per">/mo • highest coverage (prototype pricing)</div>
+              </div>
+            </div>
+            <div class="tierBody">
+              <div class="muted" style="font-weight:900">Premium protection and top-tier presentation.</div>
+              <ul>
+                <li>Monthly premium interior + exterior</li>
+                <li>Protection layer / sealant option</li>
+                <li>Priority scheduling & add-on discounts</li>
+              </ul>
+              <div class="note">Showroom-ready standard</div>
+            </div>
+            <div class="tierCtas">
+              <button class="btn small primary" type="button" data-plan="Detail Gold">Select Gold</button>
+              <button class="btn small" type="button" data-quote-plan="Detail Gold">Ask about Gold</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="note" style="margin-top:14px">
+        Prototype note: Replace pricing and inclusions with your finalized packages. Buttons can route into scheduling + quote flow automatically (already wired).
+      </div>
+    </div>
+  </section>
+
+  <!-- SCHEDULE -->
+  <section id="schedule">
+    <div class="wrap">
+      <div class="sectionHead">
+        <div>
+          <div class="overline">Schedule</div>
+          <h2>Dynamic booking calendar</h2>
+          <div class="subhead">
+            Select a date from the calendar, choose a time slot, then confirm. Bookings save locally for demo purposes.
+          </div>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap">
+          <a class="btn small" href="Business%20Model%20Canvas.pdf" target="_blank" rel="noopener">Open Canvas PDF</a>
+          <button class="btn small soft" type="button" id="viewBookingsBtn">View Saved</button>
+        </div>
+      </div>
+
+      <div class="scheduleGrid">
+        <!-- Booking form -->
+        <div class="card">
+          <div class="pad">
+            <div style="font-weight:1100; font-size:18px; margin-bottom:10px">Book an appointment</div>
+
+            <form class="form" id="bookingForm">
+              <div class="row2">
+                <div>
+                  <label for="bName">Name</label>
+                  <input id="bName" name="bName" autocomplete="name" placeholder="Your name" required>
+                </div>
+                <div>
+                  <label for="bPhone">Phone</label>
+                  <input id="bPhone" name="bPhone" autocomplete="tel" placeholder="(555) 123-4567" required>
+                </div>
+              </div>
+
+              <div class="row2">
+                <div>
+                  <label for="bEmail">Email</label>
+                  <input id="bEmail" name="bEmail" type="email" autocomplete="email" placeholder="you@email.com" required>
+                </div>
+                <div>
+                  <label for="bType">Client Type</label>
+                  <select id="bType" name="bType" required>
+                    <option>Residential</option>
+                    <option>Commercial</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row2">
+                <div>
+                  <label for="bService">Service</label>
+                  <select id="bService" name="bService" required>
+                    <option value="" disabled selected>Select a service</option>
+                    <option>Pressure Washing</option>
+                    <option>Soft Wash</option>
+                    <option>Mobile Detailing</option>
+                    <option>Commercial & Fleet</option>
+                    <option>Subscription / Bundle</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="bLocation">Service Address / Location</label>
+                  <input id="bLocation" name="bLocation" placeholder="Street, City (or fleet yard location)" required>
+                </div>
+              </div>
+
+              <div class="row2">
+                <div>
+                  <label for="bDate">Selected Date</label>
+                  <input id="bDate" name="bDate" type="date" required>
+                </div>
+                <div>
+                  <label>Time Slot</label>
+                  <div class="slots" id="slots" role="listbox" aria-label="Available time slots">
+                    <div class="slot" role="option" tabindex="0" data-slot="09:00">9:00 AM</div>
+                    <div class="slot" role="option" tabindex="0" data-slot="11:00">11:00 AM</div>
+                    <div class="slot" role="option" tabindex="0" data-slot="13:00">1:00 PM</div>
+                    <div class="slot" role="option" tabindex="0" data-slot="15:00">3:00 PM</div>
+                  </div>
+                  <input id="bSlot" name="bSlot" type="hidden" required>
+                </div>
+              </div>
+
+              <div>
+                <label for="bNotes">Notes (scope / vehicle / square footage)</label>
+                <textarea id="bNotes" name="bNotes" placeholder="Example: 2-car driveway + walkway; SUV interior/exterior; storefront sidewalk..."></textarea>
+              </div>
+
+              <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center">
+                <button class="btn primary" type="submit">Confirm Booking</button>
+                <button class="btn" type="button" id="copyBooking">Copy Summary</button>
+                <a class="btn" id="icsBtn" style="display:none" download="SuperClean-Appointment.ics">Download .ics</a>
+                <a class="btn" id="gcalBtn" style="display:none" target="_blank" rel="noopener">Add to Google Calendar</a>
+              </div>
+
+              <div class="note ok" id="bookingResult" style="display:none" aria-live="polite"></div>
+              <div class="note warn" style="margin-top:12px">
+                Prototype behavior: bookings save in your browser. For production, connect to Calendly/Square/CRM.
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Calendar + Saved -->
+        <div class="card">
+          <div class="pad">
+            <div style="font-weight:1100; font-size:18px; margin-bottom:10px">Pick a date</div>
+
+            <div class="calendar" aria-label="Dynamic calendar">
+              <div class="calHead">
+                <div class="calTitle">
+                  <b id="calMonthLabel">Month YYYY</b>
+                  <span id="calSelectedLabel">Select a date</span>
+                </div>
+                <div class="calNav">
+                  <button class="iconBtn" id="calPrev" type="button" aria-label="Previous month">‹</button>
+                  <button class="iconBtn" id="calNext" type="button" aria-label="Next month">›</button>
+                </div>
+              </div>
+
+              <div class="weekdays" aria-hidden="true">
+                <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+              </div>
+              <div class="days" id="calDays" role="grid" aria-label="Calendar days"></div>
+
+              <div class="availRow">
+                <span class="miniTag blue" id="calHint">Tip: choose a day, then a time</span>
+                <button class="btn small" type="button" id="calToday">Today</button>
+              </div>
+            </div>
+
+            <div class="card" style="border-radius:16px; margin-top:14px">
+              <div class="pad">
+                <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap">
+                  <div style="font-weight:1100">Saved bookings</div>
+                  <button class="btn small" type="button" id="clearBookingsBtn">Clear</button>
+                </div>
+                <div class="muted" style="font-weight:850; font-size:12px; margin-top:8px">
+                  Stored locally for the demo.
+                </div>
+                <div id="bookingsList" style="margin-top:12px; display:grid; gap:10px"></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT + CONTACT -->
+  <section id="aboutContact">
+    <div class="wrap">
+      <div class="sectionHead">
+        <div>
+          <div class="overline">Company</div>
+          <h2>About and contact</h2>
+          <div class="subhead">
+            Clean communication. Consistent execution. Premium finish. This section is set up for production-ready detail.
+          </div>
+        </div>
+        <div class="tabs" role="tablist" aria-label="About and contact tabs">
+          <button class="tabBtn" id="tabAbout" role="tab" aria-selected="true" aria-controls="panelAbout" onclick="setTab('about')">About</button>
+          <button class="tabBtn" id="tabContact" role="tab" aria-selected="false" aria-controls="panelContact" onclick="setTab('contact')">Contact</button>
+          <button class="tabBtn" id="tabFAQ" role="tab" aria-selected="false" aria-controls="panelFAQ" onclick="setTab('faq')">FAQ</button>
+        </div>
+      </div>
+
+      <!-- About -->
+      <div class="tabPanel active" id="panelAbout" role="tabpanel" aria-labelledby="tabAbout">
+        <div class="aboutGrid">
+          <div class="card">
+            <div class="pad">
+              <div style="font-weight:1100; font-size:18px; margin-bottom:10px">Who we are</div>
+              <div class="muted" style="font-weight:850; line-height:1.55">
+                Super Clean is a mobile-first service company for residential and commercial clients.
+                We combine professional equipment with a repeatable process—built for reliability, communication, and visible results.
+              </div>
+
+              <div class="infoGrid">
+                <div class="infoBox">
+                  <b>Mission</b>
+                  <div class="small">Make property and vehicle presentation effortless with dependable premium service.</div>
+                </div>
+                <div class="infoBox">
+                  <b>Quality standard</b>
+                  <div class="small">High-visibility areas prioritized; consistent finish and client-ready outcome.</div>
+                </div>
+                <div class="infoBox">
+                  <b>Residential focus</b>
+                  <div class="small">Curb appeal upgrades and protected surfaces with smart methods.</div>
+                </div>
+                <div class="infoBox">
+                  <b>Commercial focus</b>
+                  <div class="small">Recurring plans that support operations with minimal disruption.</div>
+                </div>
+              </div>
+
+              <div class="note" style="margin-top:14px">
+                Process: scope review → choose method → meticulous clean → final walkthrough → maintenance plan (optional).
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="pad">
+              <div style="font-weight:1100; font-size:18px; margin-bottom:10px">Business artifacts</div>
+
+              <div class="note" style="margin-bottom:12px">
+                Use these during your presentation to highlight value proposition, customer segments, channels, and revenue model.
+              </div>
+
+              <div style="display:flex; gap:10px; flex-wrap:wrap">
+                <a class="btn soft" href="Business%20Model%20Canvas.pdf" target="_blank" rel="noopener">Open Business Model Canvas</a>
+                <a class="btn" href="#bundles">View Bundles</a>
+              </div>
+
+              <div class="note" style="margin-top:14px">
+                Tip: Add testimonials and reviews here as you move from prototype → production.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <div class="tabPanel" id="panelContact" role="tabpanel" aria-labelledby="tabContact">
+        <div class="aboutGrid">
+          <div class="card">
+            <div class="pad">
+              <div style="font-weight:1100; font-size:18px; margin-bottom:10px">Contact information</div>
+
+              <!-- EDIT THESE TO REAL VALUES -->
+              <div class="infoGrid">
+                <div class="infoBox">
+                  <b>Phone</b>
+                  <div class="small">
+                    <a id="phoneLink" href="tel:+10000000000">+1 (000) 000-0000</a>
+                    <div style="margin-top:8px">
+                      <button class="btn small" type="button" onclick="copyText('+1 (000) 000-0000')">Copy</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="infoBox">
+                  <b>Email</b>
+                  <div class="small">
+                    <a id="emailLink" href="mailto:quotes@superclean.com">quotes@superclean.com</a>
+                    <div style="margin-top:8px">
+                      <button class="btn small" type="button" onclick="copyText('quotes@superclean.com')">Copy</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="infoBox">
+                  <b>Hours</b>
+                  <div class="small">Mon–Sat: 8:00 AM – 6:00 PM<br/>After-hours commercial by request</div>
+                </div>
+                <div class="infoBox">
+                  <b>Service area</b>
+                  <div class="small">Update this for your region (cities/zip coverage).</div>
+                </div>
+              </div>
+
+              <div class="note" style="margin-top:14px">
+                Production note: swap placeholders for real contact details and add service area map if desired.
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="pad">
+              <div style="font-weight:1100; font-size:18px; margin-bottom:10px">Request a quote</div>
+              <div class="muted" style="font-weight:850; line-height:1.55">
+                Submitting opens a pre-filled email draft (no backend required) and shows an on-page confirmation.
+              </div>
+
+              <form class="form" id="quoteForm" style="margin-top:12px">
+                <div class="row2">
+                  <div>
+                    <label for="qName">Name</label>
+                    <input id="qName" name="qName" placeholder="Your name" required>
+                  </div>
+                  <div>
+                    <label for="qEmail">Email</label>
+                    <input id="qEmail" name="qEmail" type="email" placeholder="you@email.com" required>
+                  </div>
+                </div>
+
+                <div class="row2">
+                  <div>
+                    <label for="qService">Service</label>
+                    <select id="qService" name="qService" required>
+                      <option value="" disabled selected>Select a service</option>
+                      <option>Pressure Washing</option>
+                      <option>Soft Wash</option>
+                      <option>Mobile Detailing</option>
+                      <option>Commercial & Fleet</option>
+                      <option>Subscription / Bundle</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="qTiming">Timing</label>
+                    <select id="qTiming" name="qTiming" required>
+                      <option>ASAP</option>
+                      <option>This week</option>
+                      <option>Within 2 weeks</option>
+                      <option>Flexible</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label for="qLocation">Service Address / Location</label>
+                  <input id="qLocation" name="qLocation" placeholder="Street, City (or fleet yard location)" required>
+                </div>
+
+                <div>
+                  <label for="qMsg">Scope (square footage / vehicles / notes)</label>
+                  <textarea id="qMsg" name="qMsg" placeholder="Example: 1-story siding + driveway; 2 vehicles; monthly storefront wash..."></textarea>
+                </div>
+
+                <div class="contactActions">
+                  <button class="btn primary" type="submit">Send Quote Request</button>
+                  <a class="btn soft" href="#schedule">Or Schedule</a>
+                </div>
+
+                <div class="note ok" id="quoteResult" style="display:none" aria-live="polite"></div>
+              </form>
+
+              <div class="note warn" style="margin-top:14px">
+                Production: replace mailto with Formspree/Netlify Forms/Zapier or CRM integration.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="tabPanel" id="panelFAQ" role="tabpanel" aria-labelledby="tabFAQ">
+        <div class="card">
+          <div class="pad">
+            <div style="font-weight:1100; font-size:18px; margin-bottom:10px">FAQ</div>
+
+            <details class="note" open>
+              <summary style="cursor:pointer; font-weight:1100">Do you offer commercial and fleet service?</summary>
+              <div style="margin-top:10px; line-height:1.55">
+                Yes. We can set recurring plans and schedule around operations (including after-hours by request).
+              </div>
+            </details>
+
+            <details class="note">
+              <summary style="cursor:pointer; font-weight:1100">How does pricing work?</summary>
+              <div style="margin-top:10px; line-height:1.55">
+                Pricing depends on scope (surface size/condition, vehicle type, add-ons). Use Request a Quote for accurate estimates.
+              </div>
+            </details>
+
+            <details class="note">
+              <summary style="cursor:pointer; font-weight:1100">Can I use a subscription plan?</summary>
+              <div style="margin-top:10px; line-height:1.55">
+                Yes—Bronze/Silver/Gold plans are designed for recurring consistency. Choose a plan and schedule your first service.
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap foot">
+      <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap">
+        <span style="font-weight:1100; color:rgba(234,242,255,.92)">Super Clean</span>
+        <span class="muted" style="font-weight:850">© <span id="year"></span> • Pressure Washing & Mobile Detailing</span>
+      </div>
+      <div style="display:flex; gap:12px; flex-wrap:wrap">
+        <a href="#services">Services</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#bundles">Bundles</a>
+        <a href="#schedule">Schedule</a>
+        <a href="#aboutContact">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Chatbot -->
+  <button class="chatFab" id="chatFab" aria-label="Open chat">💬</button>
+  <div class="chatPanel" id="chatPanel" role="dialog" aria-label="Super Clean chat">
+    <div class="chatHead">
+      <div class="chatTitle">
+        🤖
+        <div>
+          Super Clean Assistant
+          <small id="chatContext">Ready to help</small>
+        </div>
+      </div>
+      <button class="btn small" id="chatClose" type="button">Close</button>
+    </div>
+
+    <div class="chatBody" id="chatBody"></div>
+
+    <div class="chatQuick" aria-label="Quick actions">
+      <button class="btn small soft" type="button" data-quick="Show me services">Services</button>
+      <button class="btn small soft" type="button" data-quick="Show bundles">Bundles</button>
+      <button class="btn small soft" type="button" data-quick="Help me book">Book</button>
+      <button class="btn small" type="button" data-quick="Open contact">Contact</button>
+    </div>
+
+    <div class="chatInput">
+      <input id="chatText" placeholder="Ask about services, bundles, or scheduling…" />
+      <button class="btn small primary" id="chatSend" type="button">Send</button>
+    </div>
+  </div>
+
+  <script>
+    /* =========================
+       Helpers
+    ========================= */
+    const $ = (s, r=document) => r.querySelector(s);
+    const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+    const esc = (s="") => String(s).replace(/[<>&"']/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;',"'":'&#39;'}[c]));
+    const pad2 = (n) => String(n).padStart(2,'0');
+
+    function copyText(text){
+      navigator.clipboard?.writeText(text).then(() => alert("Copied: " + text)).catch(() => {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        ta.remove();
+        alert("Copied: " + text);
+      });
+    }
+    window.copyText = copyText;
+
+    function scrollToId(id){
+      const el = document.getElementById(id);
+      if(el) el.scrollIntoView({behavior:"smooth", block:"start"});
+    }
+
+    /* =========================
+       Header: mobile menu
+    ========================= */
+    const mobileMenu = $("#mobileMenu");
+    $("#hamburger").addEventListener("click", () => mobileMenu.classList.toggle("open"));
+    $$("#mobileMenu a").forEach(a => a.addEventListener("click", () => mobileMenu.classList.remove("open")));
+
+    /* =========================
+       Year
+    ========================= */
+    $("#year").textContent = new Date().getFullYear();
+
+    /* =========================
+       Canvas PDF button
+    ========================= */
+    $("#canvasBtn").addEventListener("click", () => {
+      window.open("Business%20Model%20Canvas.pdf", "_blank", "noopener");
+    });
+
+    /* =========================
+       Gallery hint
+    ========================= */
+    $("#galleryHintBtn").addEventListener("click", () => {
+      const el = $("#galleryHint");
+      el.style.display = (el.style.display === "none" || !el.style.display) ? "block" : "none";
+    });
+
+    /* =========================
+       Tabs: About/Contact/FAQ
+    ========================= */
+    function setTab(which){
+      const map = {
+        about: {tab:"#tabAbout", panel:"#panelAbout"},
+        contact: {tab:"#tabContact", panel:"#panelContact"},
+        faq: {tab:"#tabFAQ", panel:"#panelFAQ"}
+      };
+      Object.values(map).forEach(v => {
+        $(v.tab).setAttribute("aria-selected","false");
+        $(v.panel).classList.remove("active");
+      });
+      $(map[which].tab).setAttribute("aria-selected","true");
+      $(map[which].panel).classList.add("active");
+    }
+    window.setTab = setTab;
+
+    /* =========================
+       Bundles toggle + actions
+    ========================= */
+    let bundleMode = "wash"; // wash | detail
+    function setBundle(mode){
+      bundleMode = mode;
+      $("#segWash").setAttribute("aria-selected", mode === "wash" ? "true" : "false");
+      $("#segDetail").setAttribute("aria-selected", mode === "detail" ? "true" : "false");
+      $("#bundleWash").style.display = mode === "wash" ? "block" : "none";
+      $("#bundleDetail").style.display = mode === "detail" ? "block" : "none";
+    }
+    window.setBundle = setBundle;
+
+    function preselectFromBundle(){
+      // If user is in bundles and hits schedule, set service to Subscription / Bundle by default
+      $("#bService").value = "Subscription / Bundle";
+      $("#bNotes").value = $("#bNotes").value || "Interested in a subscription plan (Bronze/Silver/Gold).";
+    }
+    window.preselectFromBundle = preselectFromBundle;
+
+    // Tier buttons: select plan -> schedule and prefill
+    $$("[data-plan]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const plan = btn.getAttribute("data-plan");
+        $("#bService").value = "Subscription / Bundle";
+        $("#bNotes").value = `Plan selected: ${plan}\n` + ($("#bNotes").value ? ("\n" + $("#bNotes").value) : "");
+        scrollToId("schedule");
+        setTimeout(() => $("#bName").focus(), 80);
+        botSuggestForPlan(plan);
+      });
+    });
+
+    // Tier buttons: ask about plan -> contact form prefill
+    $$("[data-quote-plan]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const plan = btn.getAttribute("data-quote-plan");
+        setTab("contact");
+        $("#qService").value = "Subscription / Bundle";
+        $("#qMsg").value = `I'm interested in the ${plan} plan.\nPlease share pricing and availability.\n`;
+        scrollToId("aboutContact");
+        setTimeout(() => $("#qName").focus(), 80);
+      });
+    });
+
+    /* =========================
+       Services preset + quick quote buttons
+    ========================= */
+    $$("[data-preset]").forEach(a => {
+      a.addEventListener("click", () => {
+        const v = a.getAttribute("data-preset");
+        $("#bService").value = v;
+      });
+    });
+    $$("[data-quote]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const svc = btn.getAttribute("data-quote");
+        setTab("contact");
+        $("#qService").value = svc;
+        scrollToId("aboutContact");
+        setTimeout(() => $("#qName").focus(), 80);
+      });
+    });
+
+    /* =========================
+       Scheduler: time slots
+    ========================= */
+    const slotHidden = $("#bSlot");
+    const slotEls = $$(".slot");
+    function activateSlot(el){
+      slotEls.forEach(s => s.classList.remove("active"));
+      el.classList.add("active");
+      slotHidden.value = el.dataset.slot;
+      updateSelectedLabel();
+    }
+    slotEls.forEach(el => {
+      el.addEventListener("click", () => activateSlot(el));
+      el.addEventListener("keydown", (e) => {
+        if(e.key === "Enter" || e.key === " ") { e.preventDefault(); activateSlot(el); }
+      });
+    });
+
+    /* =========================
+       Scheduler: dynamic calendar
+    ========================= */
+    const calMonthLabel = $("#calMonthLabel");
+    const calSelectedLabel = $("#calSelectedLabel");
+    const calDays = $("#calDays");
+    const dateEl = $("#bDate");
+
+    let calView = new Date(); // month currently displayed
+    calView.setDate(1);
+
+    let selectedDate = null; // Date object (local)
+    const today = new Date();
+    today.setHours(0,0,0,0);
+
+    // default date = tomorrow
+    const tomorrow = new Date(Date.now() + 86400000);
+    dateEl.value = tomorrow.toISOString().slice(0,10);
+    selectedDate = new Date(dateEl.value + "T00:00:00");
+    selectedDate.setHours(0,0,0,0);
+
+    function monthName(d){
+      return d.toLocaleDateString(undefined, {month:"long", year:"numeric"});
+    }
+    function toISODate(d){
+      return `${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}`;
+    }
+    function updateSelectedLabel(){
+      const slotLabel = slotEls.find(s => s.classList.contains("active"))?.textContent?.trim();
+      if(selectedDate){
+        const nice = selectedDate.toLocaleDateString(undefined, {weekday:"short", month:"short", day:"numeric", year:"numeric"});
+        calSelectedLabel.textContent = slotLabel ? `${nice} • ${slotLabel}` : nice;
+      } else {
+        calSelectedLabel.textContent = "Select a date";
+      }
+    }
+
+    function renderCalendar(){
+      calMonthLabel.textContent = monthName(calView);
+      calDays.innerHTML = "";
+
+      const firstDay = new Date(calView);
+      const startDow = firstDay.getDay(); // 0 Sun
+      const daysInMonth = new Date(calView.getFullYear(), calView.getMonth()+1, 0).getDate();
+
+      // previous month trailing
+      const prevMonthLast = new Date(calView.getFullYear(), calView.getMonth(), 0).getDate();
+
+      // Total cells: 42 (6 weeks) for stable layout
+      for(let i=0; i<42; i++){
+        const cell = document.createElement("button");
+        cell.type = "button";
+        cell.className = "day";
+        cell.setAttribute("role","gridcell");
+
+        let dayNum, cellDate, inMonth = true;
+
+        if(i < startDow){
+          // prev month
+          dayNum = prevMonthLast - (startDow - 1 - i);
+          cellDate = new Date(calView.getFullYear(), calView.getMonth()-1, dayNum);
+          inMonth = false;
+          cell.classList.add("mutedDay");
+        } else if(i >= startDow + daysInMonth){
+          // next month
+          dayNum = i - (startDow + daysInMonth) + 1;
+          cellDate = new Date(calView.getFullYear(), calView.getMonth()+1, dayNum);
+          inMonth = false;
+          cell.classList.add("mutedDay");
+        } else {
+          // current month
+          dayNum = i - startDow + 1;
+          cellDate = new Date(calView.getFullYear(), calView.getMonth(), dayNum);
+        }
+
+        cell.textContent = dayNum;
+
+        // normalize
+        cellDate.setHours(0,0,0,0);
+
+        // mark today
+        if(cellDate.getTime() === today.getTime()){
+          cell.classList.add("today");
+        }
+
+        // disable past dates (but allow today)
+        if(cellDate.getTime() < today.getTime()){
+          cell.classList.add("disabled");
+          cell.disabled = true;
+        }
+
+        // selected state
+        if(selectedDate && cellDate.getTime() === selectedDate.getTime()){
+          cell.classList.add("selected");
+        }
+
+        // click sets date
+        cell.addEventListener("click", () => {
+          if(cell.disabled) return;
+          selectedDate = new Date(cellDate);
+          dateEl.value = toISODate(selectedDate);
+          // If user clicked a muted day, jump to that month
+          if(!inMonth){
+            calView = new Date(cellDate);
+            calView.setDate(1);
+          }
+          renderCalendar();
+          updateSelectedLabel();
+        });
+
+        calDays.appendChild(cell);
+      }
+    }
+
+    $("#calPrev").addEventListener("click", () => {
+      calView = new Date(calView.getFullYear(), calView.getMonth()-1, 1);
+      renderCalendar();
+    });
+    $("#calNext").addEventListener("click", () => {
+      calView = new Date(calView.getFullYear(), calView.getMonth()+1, 1);
+      renderCalendar();
+    });
+    $("#calToday").addEventListener("click", () => {
+      calView = new Date(today);
+      calView.setDate(1);
+      selectedDate = new Date(today);
+      dateEl.value = toISODate(selectedDate);
+      renderCalendar();
+      updateSelectedLabel();
+    });
+
+    // keep calendar in sync if user edits date input manually
+    dateEl.addEventListener("change", () => {
+      if(!dateEl.value) return;
+      selectedDate = new Date(dateEl.value + "T00:00:00");
+      selectedDate.setHours(0,0,0,0);
+      calView = new Date(selectedDate);
+      calView.setDate(1);
+      renderCalendar();
+      updateSelectedLabel();
+    });
+
+    // initial
+    calView = new Date(selectedDate);
+    calView.setDate(1);
+    renderCalendar();
+    updateSelectedLabel();
+
+    /* =========================
+       Booking: local storage + calendar exports
+    ========================= */
+    const STORAGE_KEY = "superclean_bookings_v2";
+
+    function loadBookings(){
+      try{ return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); }
+      catch{ return []; }
+    }
+    function saveBookings(list){
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+    }
+
+    function localISOToUTC(dateObj){
+      const y = dateObj.getUTCFullYear();
+      const m = pad2(dateObj.getUTCMonth()+1);
+      const d = pad2(dateObj.getUTCDate());
+      const hh = pad2(dateObj.getUTCHours());
+      const mm = pad2(dateObj.getUTCMinutes());
+      const ss = pad2(dateObj.getUTCSeconds());
+      return `${y}${m}${d}T${hh}${mm}${ss}Z`;
+    }
+
+    function makeICS({title, description, location, startLocal, endLocal}){
+      const dtStart = localISOToUTC(startLocal);
+      const dtEnd   = localISOToUTC(endLocal);
+      const uid = `superclean-${Date.now()}@prototype`;
+      const icsEsc = (s="") => String(s).replace(/\\/g,"\\\\").replace(/\n/g,"\\n").replace(/,/g,"\\,").replace(/;/g,"\\;");
+      return `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Super Clean//Prototype//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:${uid}
+DTSTAMP:${localISOToUTC(new Date())}
+DTSTART:${dtStart}
+DTEND:${dtEnd}
+SUMMARY:${icsEsc(title)}
+DESCRIPTION:${icsEsc(description)}
+LOCATION:${icsEsc(location)}
+END:VEVENT
+END:VCALENDAR`;
+    }
+
+    function makeGCalLink({title, details, location, startUTC, endUTC}){
+      const q = new URLSearchParams({
+        action: "TEMPLATE",
+        text: title,
+        details,
+        location,
+        dates: `${startUTC}/${endUTC}`
+      });
+      return `https://calendar.google.com/calendar/render?${q.toString()}`;
+    }
+
+    function renderBookings(){
+      const list = loadBookings();
+      const host = $("#bookingsList");
+      host.innerHTML = "";
+
+      if(list.length === 0){
+        const empty = document.createElement("div");
+        empty.className = "note";
+        empty.textContent = "No saved bookings yet.";
+        host.appendChild(empty);
+        return;
+      }
+
+      list.slice().reverse().forEach((b) => {
+        const box = document.createElement("div");
+        box.className = "note";
+        box.textContent =
+          `${b.service} (${b.clientType})\n` +
+          `${b.date} @ ${b.slotLabel}\n` +
+          `${b.name} • ${b.phone}\n` +
+          `${b.location}\n` +
+          (b.notes ? `Notes: ${b.notes}` : "");
+        host.appendChild(box);
+      });
+    }
+
+    $("#viewBookingsBtn").addEventListener("click", () => {
+      renderBookings();
+      $("#bookingsList").scrollIntoView({behavior:"smooth", block:"nearest"});
+    });
+    $("#clearBookingsBtn").addEventListener("click", () => {
+      if(confirm("Clear saved bookings for this prototype?")){
+        saveBookings([]);
+        renderBookings();
+      }
+    });
+    renderBookings();
+
+    $("#bookingForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      if(!slotHidden.value){
+        alert("Please select a time slot.");
+        return;
+      }
+      if(!dateEl.value){
+        alert("Please select a date.");
+        return;
+      }
+
+      const slotLabel = slotEls.find(s => s.classList.contains("active"))?.textContent?.trim() || slotHidden.value;
+
+      const payload = {
+        name: $("#bName").value.trim(),
+        phone: $("#bPhone").value.trim(),
+        email: $("#bEmail").value.trim(),
+        clientType: $("#bType").value,
+        service: $("#bService").value,
+        location: $("#bLocation").value.trim(),
+        date: $("#bDate").value,
+        slot: $("#bSlot").value,
+        slotLabel,
+        notes: $("#bNotes").value.trim(),
+        createdAt: new Date().toISOString()
+      };
+
+      // start/end local time (1 hour)
+      const [hh, mm] = payload.slot.split(":").map(Number);
+      const startLocal = new Date(`${payload.date}T00:00:00`);
+      startLocal.setHours(hh, mm, 0, 0);
+      const endLocal = new Date(startLocal.getTime() + 60*60*1000);
+
+      const title = `Super Clean • ${payload.service}`;
+      const description =
+        `Client: ${payload.name}\n` +
+        `Phone: ${payload.phone}\n` +
+        `Email: ${payload.email}\n` +
+        `Type: ${payload.clientType}\n` +
+        `Service: ${payload.service}\n` +
+        (payload.notes ? `Notes: ${payload.notes}\n` : "") +
+        `\n(Prototype booking captured locally.)`;
+
+      // .ics
+      const icsText = makeICS({
+        title,
+        description,
+        location: payload.location,
+        startLocal,
+        endLocal
+      });
+      const blob = new Blob([icsText], {type: "text/calendar;charset=utf-8"});
+      const url = URL.createObjectURL(blob);
+
+      const icsBtn = $("#icsBtn");
+      icsBtn.href = url;
+      icsBtn.style.display = "inline-flex";
+
+      // Google Calendar
+      const startUTC = localISOToUTC(new Date(startLocal));
+      const endUTC = localISOToUTC(new Date(endLocal));
+      const gcal = $("#gcalBtn");
+      gcal.href = makeGCalLink({
+        title,
+        details: description,
+        location: payload.location,
+        startUTC,
+        endUTC
+      });
+      gcal.style.display = "inline-flex";
+
+      // Save booking
+      const existing = loadBookings();
+      existing.push(payload);
+      saveBookings(existing);
+      renderBookings();
+
+      // Confirmation
+      const box = $("#bookingResult");
+      box.style.display = "block";
+      box.textContent =
+        `✅ Booking confirmed (prototype)\n\n` +
+        `Service: ${payload.service} (${payload.clientType})\n` +
+        `When: ${payload.date} at ${payload.slotLabel}\n` +
+        `Where: ${payload.location}\n\n` +
+        `Name: ${payload.name}\nPhone: ${payload.phone}\nEmail: ${payload.email}\n` +
+        (payload.notes ? `\nNotes: ${payload.notes}\n` : "") +
+        `\nNext: add to your calendar or connect this to a real scheduler for production.`;
+
+      box.scrollIntoView({behavior:"smooth", block:"nearest"});
+
+      // Bot reaction
+      botSay(`Confirmed. Want to add a recurring plan next? I can show bundles or help you request a quote.`, "bot");
+      botSuggestQuick(["Show bundles", "Open contact"]);
+    });
+
+    $("#copyBooking").addEventListener("click", async () => {
+      const box = $("#bookingResult");
+      const text = box.style.display === "block" ? box.textContent : "No booking captured yet.";
+      try{
+        await navigator.clipboard.writeText(text);
+        alert("Booking summary copied.");
+      }catch{
+        alert("Copy failed. Select and copy manually.");
+      }
+    });
+
+    /* =========================
+       Quote form: mailto + on-page
+    ========================= */
+    $("#quoteForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const payload = {
+        name: $("#qName").value.trim(),
+        email: $("#qEmail").value.trim(),
+        service: $("#qService").value,
+        timing: $("#qTiming").value,
+        location: $("#qLocation").value.trim(),
+        msg: $("#qMsg").value.trim()
+      };
+
+      const subject = encodeURIComponent(`Quote Request — ${payload.service} (${payload.timing})`);
+      const body =
+        `Name: ${payload.name}\n` +
+        `Email: ${payload.email}\n` +
+        `Service: ${payload.service}\n` +
+        `Timing: ${payload.timing}\n` +
+        `Location: ${payload.location}\n` +
+        (payload.msg ? `Details: ${payload.msg}\n` : "") +
+        `\n---\nSent from Super Clean website.`;
+      const mailto = `mailto:quotes@superclean.com?subject=${subject}&body=${encodeURIComponent(body)}`;
+
+      const box = $("#quoteResult");
+      box.style.display = "block";
+      box.textContent =
+        `✅ Quote request prepared\n\n` +
+        `Service: ${payload.service}\nTiming: ${payload.timing}\nLocation: ${payload.location}\n\n` +
+        `Next: your email app will open with a pre-filled message.`;
+
+      window.location.href = mailto;
+      box.scrollIntoView({behavior:"smooth", block:"nearest"});
+
+      botSay(`I opened a pre-filled email. If you want, I can help you choose a plan or schedule a first appointment.`, "bot");
+      botSuggestQuick(["Show bundles", "Help me book"]);
+    });
+
+    /* =========================
+       Chatbot: functional + can navigate
+    ========================= */
+    const chatFab = $("#chatFab");
+    const chatPanel = $("#chatPanel");
+    const chatBody = $("#chatBody");
+    const chatText = $("#chatText");
+    const chatContext = $("#chatContext");
+
+    const sections = [
+      {id:"home", name:"Home"},
+      {id:"services", name:"Services"},
+      {id:"gallery", name:"Gallery"},
+      {id:"bundles", name:"Bundles"},
+      {id:"schedule", name:"Schedule"},
+      {id:"aboutContact", name:"About/Contact"}
+    ];
+    let activeSection = "home";
+
+    function botSay(text, who="bot"){
+      const div = document.createElement("div");
+      div.className = "msg" + (who === "me" ? " me" : "");
+      div.innerHTML = esc(text).replace(/\n/g,"<br/>");
+      chatBody.appendChild(div);
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    function botSuggestQuick(items){
+      // replace quick row buttons dynamically (optional nice touch)
+      const row = document.querySelector(".chatQuick");
+      row.innerHTML = "";
+      items.forEach(t => {
+        const b = document.createElement("button");
+        b.className = t === "Contact" ? "btn small" : "btn small soft";
+        b.type = "button";
+        b.textContent = t;
+        b.addEventListener("click", () => runChat(t));
+        row.appendChild(b);
+      });
+    }
+
+    function openChat(){
+      chatPanel.classList.add("open");
+      if(chatBody.childElementCount === 0){
+        botSay("Hi — I’m the Super Clean Assistant.\nI can help you pick a service, choose a Bronze/Silver/Gold plan, or book an appointment.");
+        botSay("Try: “show bundles”, “book pressure washing”, “open contact”, or “what do you recommend?”");
+        botSuggestQuick(["Show bundles","Show me services","Help me book","Open contact"]);
+      }
+      setTimeout(() => chatText.focus(), 60);
+    }
+    function closeChat(){ chatPanel.classList.remove("open"); }
+
+    chatFab.addEventListener("click", () => {
+      if(chatPanel.classList.contains("open")) closeChat();
+      else openChat();
+    });
+    $("#chatClose").addEventListener("click", closeChat);
+
+    function normalize(s){ return s.toLowerCase().trim(); }
+
+    function recommendPlan(context){
+      // Simple heuristics: based on service type + client type selection
+      const clientType = ($("#bType")?.value || "Residential").toLowerCase();
+      const service = ($("#bService")?.value || "").toLowerCase();
+
+      if(context.includes("commercial") || clientType.includes("commercial")){
+        return "For commercial, Silver is a strong baseline for consistency. Gold is ideal if you want recurring + higher-coverage standards.";
+      }
+      if(service.includes("detail")){
+        return "For detailing, Silver is the best balance for presentation. Bronze is great for upkeep; Gold for premium protection.";
+      }
+      if(service.includes("wash") || service.includes("soft") || service.includes("pressure")){
+        return "For pressure/soft wash, Silver is the best balance for curb appeal. Gold is ideal if you want premium, multi-area coverage.";
+      }
+      return "If you want consistent results, Silver is typically the best balance. Tell me if it’s residential or commercial and I’ll tailor it.";
+    }
+
+    function navigateByText(t){
+      // Detect section navigation
+      if(t.includes("services")) return scrollToId("services");
+      if(t.includes("gallery") || t.includes("photos")) return scrollToId("gallery");
+      if(t.includes("bundles") || t.includes("plans") || t.includes("subscription")) return scrollToId("bundles");
+      if(t.includes("schedule") || t.includes("book") || t.includes("calendar")) return scrollToId("schedule");
+      if(t.includes("contact") || t.includes("quote") || t.includes("email")) return scrollToId("aboutContact");
+      if(t.includes("home")) return scrollToId("home");
+    }
+
+    function setServiceFromChat(t){
+      const serviceSel = $("#bService");
+      if(!serviceSel) return;
+
+      if(t.includes("pressure")){
+        serviceSel.value = "Pressure Washing";
+        $("#bNotes").value = $("#bNotes").value || "Pressure washing request.";
+        return "Pressure Washing";
+      }
+      if(t.includes("soft")){
+        serviceSel.value = "Soft Wash";
+        $("#bNotes").value = $("#bNotes").value || "Soft wash request.";
+        return "Soft Wash";
+      }
+      if(t.includes("detail")){
+        serviceSel.value = "Mobile Detailing";
+        $("#bNotes").value = $("#bNotes").value || "Mobile detailing request.";
+        return "Mobile Detailing";
+      }
+      if(t.includes("fleet") || t.includes("commercial")){
+        serviceSel.value = "Commercial & Fleet";
+        $("#bType").value = "Commercial";
+        $("#bNotes").value = $("#bNotes").value || "Commercial/fleet request.";
+        return "Commercial & Fleet";
+      }
+      if(t.includes("bundle") || t.includes("plan") || t.includes("subscription")){
+        serviceSel.value = "Subscription / Bundle";
+        $("#bNotes").value = $("#bNotes").value || "Interested in a subscription plan (Bronze/Silver/Gold).";
+        return "Subscription / Bundle";
+      }
+      return null;
+    }
+
+    function botSuggestForPlan(plan){
+      // Small assistant nudge when selecting plan
+      if(!chatPanel.classList.contains("open")) return;
+      botSay(`Great choice — ${plan}.\nNext: pick a date on the calendar and a time slot.`, "bot");
+      botSuggestQuick(["Help me book","View Saved","Open contact"]);
+    }
+
+    function runChat(text){
+      const t = normalize(text);
+      botSay(text, "me");
+
+      // Fast navigation intents
+      const navKeywords = ["services","gallery","bundles","plans","subscription","schedule","book","calendar","contact","quote","home"];
+      if(navKeywords.some(k => t.includes(k))){
+        if(t.includes("open contact")){
+          setTab("contact");
+          scrollToId("aboutContact");
+          botSay("Opened
